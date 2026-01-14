@@ -8,4 +8,4 @@ define('DB_PORT', 17049);
 
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
 
-?>git
+?>
