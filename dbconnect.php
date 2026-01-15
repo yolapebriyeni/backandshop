@@ -1,11 +1,19 @@
 <?php
+// 1. Cek apakah ada variabel environment (berarti di Railway)
+$host     = getenv('MYSQLHOST') ?: 'mainline.proxy.rlwy.net';
+$username = getenv('MYSQLUSER') ?: 'root';
+$password = getenv('MYSQLPASSWORD') ?: 'nQwUQMMHxZkAdZciZwivmELPizwbvYU';
+$db_name  = getenv('MYSQLDATABASE') ?: 'railway';
+$port     = getenv('MYSQLPORT') ?: 17049;
 
-define('DB_HOST', 'mainline.proxy.rlwy.net');
-define('DB_USER', 'root');
-define('DB_PASS', 'nQwUQMMHxZkAdZciZwivmELPizwbvYU');
-define('DB_NAME', 'railway');
-define('DB_PORT', 17049);
+// 2. Buat koneksi
+$conn = new mysqli($host, $username, $password, $db_name, $port);
 
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
+// 3. Cek koneksi, kalau gagal kasih pesan yang jelas
+if ($conn->connect_error) {
+    die("Koneksi gagal bray! Errornya: " . $conn->connect_error);
+}
 
+// Opsi: Set charset ke utf8 agar karakter aman
+$conn->set_charset("utf8");
 ?>
